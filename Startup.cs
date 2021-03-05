@@ -55,7 +55,7 @@ namespace MusicBandsWebApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Bands}/{action=Index}/{id?}");
+                    pattern: "{controller=Albums}/{action=Index}/{id?}");
             });
         }
     }

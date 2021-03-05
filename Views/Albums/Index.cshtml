@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MusicBandsWebApp.Album>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AlbumTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlbumYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlbumGenre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Band)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlbumTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlbumYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlbumGenre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Band.BandName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AlbumId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AlbumId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AlbumId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
