@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -14,7 +15,10 @@ namespace MusicBandsWebApp
         }
 
         public int BandId { get; set; }
+        [Required(ErrorMessage ="The field should not be empty")]
+        [Display(Name = "Artist")]
         public string BandName { get; set; }
+        [Display(Name = "Biography")]
         public string Info { get; set; }
 
         public virtual ICollection<Album> Albums { get; set; }
