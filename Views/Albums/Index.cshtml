@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Albums</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -28,26 +28,61 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AlbumTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AlbumYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AlbumGenre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Band.BandName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.AlbumId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.AlbumId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.AlbumId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AlbumTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AlbumYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AlbumGenre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Band.BandName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.AlbumId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.AlbumId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.AlbumId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<div class="container">
+    <div id="chart2"></div>
+</div>
+@section scripts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['AlbumNumber', 'Quantity of Songs', { role: 'annotation' } ],
+                ['1', 10, 'The Sickness'],
+                ['2', 12, 'Believe'],
+                ['3', 11, 'Ten Thousand Fists'],
+                ['4', 12, 'Indestructible'],
+                ['5', 12, 'Asylum'],
+                ['6', 16, 'The Lost Children'],
+                ['7', 12, 'Immortalized'],
+                ['8', 10, 'Evolution'],
+                ]);
+
+            var options = {
+                title: "Songs in each Album",
+                width: 800,
+                height: 400,
+                bar: {groupWidth: "95%"},
+                legend: { position: "none" },
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart2'));
+            chart.draw(data, options);
+        }
+    </script>
+}
